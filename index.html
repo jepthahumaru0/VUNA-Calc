@@ -3,13 +3,13 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>VUNA SOFTWARE</title>
+  <title>VUNA-Calc | SEN 482 DevOps CA</title>
   <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     :root {
       --ink: #0e0e10; --ink-mid: #4a4a55; --ink-soft: #8e8e9a;
-      --surface: #f7f7f8; --card: #ffffff; --accent: red;
+      --surface: #f7f7f8; --card: #ffffff; --accent: #5b3de8;
       --accent-dim: #ede9fd; --green: #1a9e6a; --green-dim: #e0f5ed;
       --border: rgba(0,0,0,0.08); --mono: 'JetBrains Mono', monospace;
       --sans: 'Space Grotesk', sans-serif;
@@ -26,7 +26,7 @@
     h1 span { color: var(--accent); }
     .hero-sub { font-size: 17px; color: var(--ink-mid); line-height: 1.65; max-width: 540px; margin: 0 auto 40px; }
     .cta-row { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
-    .btn-primary { background: var(--accent); color: green; font-family: var(--sans); font-size: 15px; font-weight: 600; padding: 13px 28px; border-radius: 10px; border: none; cursor: pointer; text-decoration: none; display: inline-flex; align-items: center; gap: 8px; transition: opacity 0.15s; }
+    .btn-primary { background: var(--accent); color: #fff; font-family: var(--sans); font-size: 15px; font-weight: 600; padding: 13px 28px; border-radius: 10px; border: none; cursor: pointer; text-decoration: none; display: inline-flex; align-items: center; gap: 8px; transition: opacity 0.15s; }
     .btn-primary:hover { opacity: 0.88; }
     .btn-ghost { background: transparent; color: var(--ink-mid); font-family: var(--sans); font-size: 15px; font-weight: 500; padding: 13px 28px; border-radius: 10px; border: 1px solid var(--border); cursor: pointer; text-decoration: none; display: inline-flex; align-items: center; gap: 8px; transition: background 0.15s; }
     .btn-ghost:hover { background: var(--card); }
@@ -62,14 +62,15 @@
 
   <header>
     <span class="logo">VUNA-Calc</span>
-    <span class="badge-uni">Veritas University &nbsp;&middot;&nbsp; THE CHANGE I WAS ASKD TO MAKE</span>
+    <span class="badge-uni">Veritas University &nbsp;&middot;&nbsp; SEN 482 DevOps</span>
   </header>
 
   <section class="hero">
     <div class="pill"><span class="pill-dot"></span> Live &amp; Auto-Deploying</div>
     <h1>A calculator<br/>built for <span>CI/CD</span></h1>
     <p class="hero-sub">
-      MAKE CHANGES
+      VUNA-Calc is a stripped-down calculator with automated testing, Docker containerisation,
+      and a GitHub Actions pipeline that tests and deploys every push to this server automatically.
     </p>
     <div class="cta-row">
       <a href="/calc/index.html" class="btn-primary">Open Calculator &rarr;</a>

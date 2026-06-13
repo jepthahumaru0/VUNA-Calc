@@ -38,35 +38,35 @@
         <!-- Button grid -->
         <div class="btn-grid">
 
-          <!-- Row 1: AC  CE  %  ( ) -->
-          <button class="btn-purple" onclick="clearResult()">AC</button>
-          <button class="btn-purple" onclick="ceResult()">CE</button>
-          <button class="btn-purple" onclick="triggerPercentInsight()">%</button>
-          <button class="btn-purple" onclick="operatorToResult('/')">÷</button>
+          <!-- Row 1: AC  CE  ←  (spare) -->
+          <button class="btn-action"    onclick="clearResult()">AC</button>
+          <button class="btn-ce"        onclick="ceResult()">CE</button>
+          <button class="btn-operator"  onclick="operatorToResult('(')">(</button>
+          <button class="btn-operator"  onclick="operatorToResult(')')">)</button>
 
-          <!-- Row 2: 7  8  9  × -->
-          <button class="btn-purple" onclick="appendToResult(7)">7</button>
-          <button class="btn-purple" onclick="appendToResult(8)">8</button>
-          <button class="btn-purple" onclick="appendToResult(9)">9</button>
-          <button class="btn-purple" onclick="operatorToResult('*')">×</button>
+          <!-- Row 2: 7  8  9  ÷ -->
+          <button class="btn-light"    onclick="appendToResult(7)">7</button>
+          <button class="btn-light"    onclick="appendToResult(8)">8</button>
+          <button class="btn-light"    onclick="appendToResult(9)">9</button>
+          <button class="btn-operator" onclick="operatorToResult('/')">÷</button>
 
-          <!-- Row 3: 4  5  6  − -->
-          <button class="btn-purple" onclick="appendToResult(4)">4</button>
-          <button class="btn-purple" onclick="appendToResult(5)">5</button>
-          <button class="btn-purple" onclick="appendToResult(6)">6</button>
-          <button class="btn-purple" onclick="operatorToResult('-')">−</button>
+          <!-- Row 3: 4  5  6  × -->
+          <button class="btn-light"    onclick="appendToResult(4)">4</button>
+          <button class="btn-light"    onclick="appendToResult(5)">5</button>
+          <button class="btn-light"    onclick="appendToResult(6)">6</button>
+          <button class="btn-operator" onclick="operatorToResult('*')">×</button>
 
-          <!-- Row 4: 1  2  3  + -->
-          <button class="btn-purple" onclick="appendToResult(1)">1</button>
-          <button class="btn-purple" onclick="appendToResult(2)">2</button>
-          <button class="btn-purple" onclick="appendToResult(3)">3</button>
-          <button class="btn-purple" onclick="operatorToResult('+')">+</button>
+          <!-- Row 4: 1  2  3  − -->
+          <button class="btn-light"    onclick="appendToResult(1)">1</button>
+          <button class="btn-light"    onclick="appendToResult(2)">2</button>
+          <button class="btn-light"    onclick="appendToResult(3)">3</button>
+          <button class="btn-operator" onclick="operatorToResult('-')">−</button>
 
-          <!-- Row 5: .  0  (  ) -->
-          <button class="btn-purple" onclick="appendToResult('.')">.</button>
-          <button class="btn-purple" onclick="appendToResult(0)">0</button>
-          <button class="btn-purple" onclick="operatorToResult('(')">(</button>
-          <button class="btn-purple" onclick="operatorToResult(')')">)</button>
+          <!-- Row 5: .  0  %  + -->
+          <button class="btn-light"    onclick="appendToResult('.')">.</button>
+          <button class="btn-light"    onclick="appendToResult(0)">0</button>
+          <button class="btn-percent"  onclick="triggerPercentInsight()">%</button>
+          <button class="btn-operator" onclick="operatorToResult('+')">+</button>
 
           <!-- Row 6: = (full width) -->
           <button class="btn-equals" onclick="calculateResult()">=</button>

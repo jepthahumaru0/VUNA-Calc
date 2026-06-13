@@ -160,6 +160,12 @@ body.dark-mode .btn-light {
   color: #fff;
 }
 
+/* Unified purple button — all buttons one color */
+.btn-purple {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: #fff;
+}
+
 /* ── Header ───────────────────────────────────────────────── */
 .group-header {
   color: var(--secondary);

@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>VUNA-Calc</title>
+  <link rel="stylesheet" href="src/style.css" />
+</head>
+
+<body>
+
+  <!-- Theme toggle -->
+  <button class="theme-toggle-btn" id="theme-toggle" onclick="toggleTheme()" title="Toggle dark/light mode">
+    🌙
+  </button>
+
+  <div style="max-width:420px; margin:0 auto; padding:20px 12px;">
+
+    <!-- Header -->
+    <div style="background:rgba(255,255,255,.15); border-radius:14px; padding:14px; margin-bottom:20px; text-align:center;">
+      <h4 class="group-header" style="margin:0; color:#fff; letter-spacing:1px;">VUNA CALCULATOR</h4>
+      <p style="margin:4px 0 0; color:rgba(255,255,255,.75); font-size:.85rem;">
+        <em>Created by Set 2025/26 — Software Engineering</em>
+      </p>
+    </div>
+
+    <!-- Calculator card -->
+    <div class="calculator-card">
+      <div style="padding:24px;">
+
+        <!-- Display -->
+        <input type="text" id="result" placeholder="0" disabled />
+
+        <!-- Custom feature: % insight bar -->
+        <div id="percent-insight"></div>
+
+        <!-- Button grid -->
+        <div class="btn-grid">
+
+          <!-- Row 1: AC  CE  ←  (spare) -->
+          <button class="btn-action"    onclick="clearResult()">AC</button>
+          <button class="btn-ce"        onclick="ceResult()">CE</button>
+          <button class="btn-operator"  onclick="operatorToResult('(')">(</button>
+          <button class="btn-operator"  onclick="operatorToResult(')')">)</button>
+
+          <!-- Row 2: 7  8  9  ÷ -->
+          <button class="btn-light"    onclick="appendToResult(7)">7</button>
+          <button class="btn-light"    onclick="appendToResult(8)">8</button>
+          <button class="btn-light"    onclick="appendToResult(9)">9</button>
+          <button class="btn-operator" onclick="operatorToResult('/')">÷</button>
+
+          <!-- Row 3: 4  5  6  × -->
+          <button class="btn-light"    onclick="appendToResult(4)">4</button>
+          <button class="btn-light"    onclick="appendToResult(5)">5</button>
+          <button class="btn-light"    onclick="appendToResult(6)">6</button>
+          <button class="btn-operator" onclick="operatorToResult('*')">×</button>
+
+          <!-- Row 4: 1  2  3  − -->
+          <button class="btn-light"    onclick="appendToResult(1)">1</button>
+          <button class="btn-light"    onclick="appendToResult(2)">2</button>
+          <button class="btn-light"    onclick="appendToResult(3)">3</button>
+          <button class="btn-operator" onclick="operatorToResult('-')">−</button>
+
+          <!-- Row 5: .  0  %  + -->
+          <button class="btn-light"    onclick="appendToResult('.')">.</button>
+          <button class="btn-light"    onclick="appendToResult(0)">0</button>
+          <button class="btn-percent"  onclick="triggerPercentInsight()">%</button>
+          <button class="btn-operator" onclick="operatorToResult('+')">+</button>
+
+          <!-- Row 6: = (full width) -->
+          <button class="btn-equals" onclick="calculateResult()">=</button>
+
+        </div>
+
+        <p style="text-align:center; margin:14px 0 0; font-size:.75rem; color:#999;">
+          Tip: type a division like <strong>25/200</strong> then press <strong>%</strong> to see the percentage insight
+        </p>
+
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Load engine FIRST, then DOM wiring -->
+  <script src="src/calculator.js"></script>
+  <script src="src/ui.js"></script>
+
+</body>
+</html>

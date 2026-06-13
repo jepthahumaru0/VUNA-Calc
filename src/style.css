@@ -143,7 +143,7 @@ body.dark-mode .btn-light {
 /* CE button */
 .btn-ce {
   background: linear-gradient(135deg, var(--warning) 0%, #e67e22 100%);
-  color: #5d2d2d;
+  color: #fff;
 }
 
 /* Equals button — spans full width */

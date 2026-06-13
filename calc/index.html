@@ -1,90 +1,149 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>VUNA-Calc</title>
-  <link rel="stylesheet" href="src/style.css" />
+  <title>VUNA-Calc | SEN 482 DevOps CA</title>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --ink: #0e0e10; --ink-mid: #4a4a55; --ink-soft: #8e8e9a;
+      --surface: #f7f7f8; --card: #ffffff; --accent: #5b3de8;
+      --accent-dim: #ede9fd; --green: #1a9e6a; --green-dim: #e0f5ed;
+      --border: rgba(0,0,0,0.08); --mono: 'JetBrains Mono', monospace;
+      --sans: 'Space Grotesk', sans-serif;
+    }
+    body { font-family: var(--sans); background: var(--surface); color: var(--ink); min-height: 100vh; padding: 0 0 80px; }
+    header { background: var(--card); border-bottom: 1px solid var(--border); padding: 0 32px; display: flex; align-items: center; justify-content: space-between; height: 56px; position: sticky; top: 0; z-index: 10; }
+    .logo { font-family: var(--mono); font-size: 15px; font-weight: 500; color: var(--accent); }
+    .badge-uni { font-size: 12px; color: var(--ink-soft); }
+    .hero { max-width: 720px; margin: 72px auto 0; padding: 0 24px; text-align: center; }
+    .pill { display: inline-flex; align-items: center; gap: 6px; background: var(--accent-dim); color: var(--accent); font-size: 12px; font-weight: 600; letter-spacing: 0.6px; text-transform: uppercase; padding: 5px 14px; border-radius: 100px; margin-bottom: 24px; }
+    .pill-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--accent); animation: pulse 2s ease-in-out infinite; }
+    @keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:0.4;transform:scale(0.7)} }
+    h1 { font-size: clamp(36px,6vw,58px); font-weight: 700; line-height: 1.1; letter-spacing: -1.5px; margin-bottom: 18px; }
+    h1 span { color: var(--accent); }
+    .hero-sub { font-size: 17px; color: var(--ink-mid); line-height: 1.65; max-width: 540px; margin: 0 auto 40px; }
+    .cta-row { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+    .btn-primary { background: var(--accent); color: #fff; font-family: var(--sans); font-size: 15px; font-weight: 600; padding: 13px 28px; border-radius: 10px; border: none; cursor: pointer; text-decoration: none; display: inline-flex; align-items: center; gap: 8px; transition: opacity 0.15s; }
+    .btn-primary:hover { opacity: 0.88; }
+    .btn-ghost { background: transparent; color: var(--ink-mid); font-family: var(--sans); font-size: 15px; font-weight: 500; padding: 13px 28px; border-radius: 10px; border: 1px solid var(--border); cursor: pointer; text-decoration: none; display: inline-flex; align-items: center; gap: 8px; transition: background 0.15s; }
+    .btn-ghost:hover { background: var(--card); }
+    .section { max-width: 800px; margin: 80px auto 0; padding: 0 24px; }
+    .section-label { font-family: var(--mono); font-size: 11px; font-weight: 500; color: var(--ink-soft); letter-spacing: 1.2px; text-transform: uppercase; margin-bottom: 20px; }
+    .pipeline { display: flex; align-items: stretch; background: var(--card); border: 1px solid var(--border); border-radius: 14px; overflow: hidden; }
+    .pipe-step { flex: 1; padding: 20px 16px; text-align: center; border-right: 1px solid var(--border); }
+    .pipe-step:last-child { border-right: none; }
+    .pipe-icon { width: 36px; height: 36px; border-radius: 8px; display: flex; align-items: center; justify-content: center; margin: 0 auto 10px; font-size: 16px; }
+    .pipe-icon.purple { background: var(--accent-dim); color: var(--accent); }
+    .pipe-icon.green  { background: var(--green-dim); color: var(--green); }
+    .pipe-icon.blue   { background: #e8f0fe; color: #1a56c4; }
+    .pipe-name { font-size: 12px; font-weight: 600; color: var(--ink); margin-bottom: 4px; }
+    .pipe-detail { font-size: 11px; color: var(--ink-soft); line-height: 1.5; }
+    .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 12px; margin-top: 16px; }
+    .card { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 20px; }
+    .card-label { font-size: 11px; font-weight: 500; color: var(--ink-soft); letter-spacing: 0.5px; text-transform: uppercase; margin-bottom: 8px; }
+    .card-value { font-family: var(--mono); font-size: 13px; font-weight: 500; color: var(--ink); word-break: break-all; }
+    .card-value.accent { color: var(--accent); }
+    .stack { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 16px; }
+    .tag { font-family: var(--mono); font-size: 12px; background: var(--card); border: 1px solid var(--border); border-radius: 6px; padding: 5px 11px; color: var(--ink-mid); }
+    footer { max-width: 800px; margin: 72px auto 0; padding: 24px 24px 0; border-top: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 8px; }
+    footer p { font-size: 13px; color: var(--ink-soft); }
+    footer span { font-family: var(--mono); font-size: 12px; color: var(--ink-soft); }
+    @media (max-width: 580px) {
+      .pipeline { flex-direction: column; }
+      .pipe-step { border-right: none; border-bottom: 1px solid var(--border); }
+      .pipe-step:last-child { border-bottom: none; }
+    }
+  </style>
 </head>
-
 <body>
 
-  <!-- Theme toggle -->
-  <button class="theme-toggle-btn" id="theme-toggle" onclick="toggleTheme()" title="Toggle dark/light mode">
-    🌙
-  </button>
+  <header>
+    <span class="logo">VUNA-Calc</span>
+    <span class="badge-uni">Veritas University &nbsp;&middot;&nbsp; SEN 482 DevOps</span>
+  </header>
 
-  <div style="max-width:420px; margin:0 auto; padding:20px 12px;">
-
-    <!-- Header -->
-    <div style="background:rgba(255,255,255,.15); border-radius:14px; padding:14px; margin-bottom:20px; text-align:center;">
-      <h4 class="group-header" style="margin:0; color:#fff; letter-spacing:1px;">VUNA CALCULATOR</h4>
-      <p style="margin:4px 0 0; color:rgba(255,255,255,.75); font-size:.85rem;">
-        <em>Created by Set 2025/26 — Software Engineering</em>
-      </p>
+  <section class="hero">
+    <div class="pill"><span class="pill-dot"></span> Live &amp; Auto-Deploying</div>
+    <h1>A calculator<br/>built for <span>CI/CD</span></h1>
+    <p class="hero-sub">
+      VUNA-Calc is a stripped-down calculator with automated testing, Docker containerisation,
+      and a GitHub Actions pipeline that tests and deploys every push to this server automatically.
+    </p>
+    <div class="cta-row">
+      <a href="/calc" class="btn-primary">Open Calculator &rarr;</a>
+      <a href="https://github.com/jepthahumaru0/VUNA-Calc" target="_blank" rel="noopener" class="btn-ghost">View on GitHub</a>
     </div>
+  </section>
 
-    <!-- Calculator card -->
-    <div class="calculator-card">
-      <div style="padding:24px;">
-
-        <!-- Display -->
-        <input type="text" id="result" placeholder="0" disabled />
-
-        <!-- Custom feature: % insight bar -->
-        <div id="percent-insight"></div>
-
-        <!-- Button grid -->
-        <div class="btn-grid">
-
-          <!-- Row 1: AC  CE  ←  (spare) -->
-          <button class="btn-action"    onclick="clearResult()">AC</button>
-          <button class="btn-ce"        onclick="ceResult()">CE</button>
-          <button class="btn-operator"  onclick="operatorToResult('(')">(</button>
-          <button class="btn-operator"  onclick="operatorToResult(')')">)</button>
-
-          <!-- Row 2: 7  8  9  ÷ -->
-          <button class="btn-light"    onclick="appendToResult(7)">7</button>
-          <button class="btn-light"    onclick="appendToResult(8)">8</button>
-          <button class="btn-light"    onclick="appendToResult(9)">9</button>
-          <button class="btn-operator" onclick="operatorToResult('/')">÷</button>
-
-          <!-- Row 3: 4  5  6  × -->
-          <button class="btn-light"    onclick="appendToResult(4)">4</button>
-          <button class="btn-light"    onclick="appendToResult(5)">5</button>
-          <button class="btn-light"    onclick="appendToResult(6)">6</button>
-          <button class="btn-operator" onclick="operatorToResult('*')">×</button>
-
-          <!-- Row 4: 1  2  3  − -->
-          <button class="btn-light"    onclick="appendToResult(1)">1</button>
-          <button class="btn-light"    onclick="appendToResult(2)">2</button>
-          <button class="btn-light"    onclick="appendToResult(3)">3</button>
-          <button class="btn-operator" onclick="operatorToResult('-')">−</button>
-
-          <!-- Row 5: .  0  %  + -->
-          <button class="btn-light"    onclick="appendToResult('.')">.</button>
-          <button class="btn-light"    onclick="appendToResult(0)">0</button>
-          <button class="btn-percent"  onclick="triggerPercentInsight()">%</button>
-          <button class="btn-operator" onclick="operatorToResult('+')">+</button>
-
-          <!-- Row 6: = (full width) -->
-          <button class="btn-equals" onclick="calculateResult()">=</button>
-
-        </div>
-
-        <p style="text-align:center; margin:14px 0 0; font-size:.75rem; color:#999;">
-          Tip: type a division like <strong>25/200</strong> then press <strong>%</strong> to see the percentage insight
-        </p>
-
+  <section class="section">
+    <p class="section-label">CI/CD Pipeline</p>
+    <div class="pipeline">
+      <div class="pipe-step">
+        <div class="pipe-icon purple">&#9654;</div>
+        <div class="pipe-name">Git Push</div>
+        <div class="pipe-detail">Triggers on every push to main</div>
+      </div>
+      <div class="pipe-step">
+        <div class="pipe-icon purple">&#10003;</div>
+        <div class="pipe-name">Lint &amp; Test</div>
+        <div class="pipe-detail">ESLint + Jest with coverage</div>
+      </div>
+      <div class="pipe-step">
+        <div class="pipe-icon blue">&#9632;</div>
+        <div class="pipe-name">Docker Build</div>
+        <div class="pipe-detail">Image pushed to Docker Hub</div>
+      </div>
+      <div class="pipe-step">
+        <div class="pipe-icon green">&#8679;</div>
+        <div class="pipe-name">FTP Deploy</div>
+        <div class="pipe-detail">Files deployed to CyberPanel</div>
       </div>
     </div>
+  </section>
 
-  </div>
+  <section class="section">
+    <p class="section-label">Project Info</p>
+    <div class="cards">
+      <div class="card">
+        <p class="card-label">Student</p>
+        <p class="card-value">Jepthah Donatus Umaru</p>
+      </div>
+      <div class="card">
+        <p class="card-label">Matric Number</p>
+        <p class="card-value accent">VUG/SEN/22/8244</p>
+      </div>
+      <div class="card">
+        <p class="card-label">Course</p>
+        <p class="card-value">SEN 482 &mdash; DevOps</p>
+      </div>
+      <div class="card">
+        <p class="card-label">Institution</p>
+        <p class="card-value">Veritas University, Abuja</p>
+      </div>
+    </div>
+  </section>
 
-  <!-- Load engine FIRST, then DOM wiring -->
-  <script src="src/calculator.js"></script>
-  <script src="src/ui.js"></script>
+  <section class="section">
+    <p class="section-label">Tech Stack</p>
+    <div class="stack">
+      <span class="tag">Node.js 20</span>
+      <span class="tag">Jest</span>
+      <span class="tag">ESLint</span>
+      <span class="tag">Docker</span>
+      <span class="tag">GitHub Actions</span>
+      <span class="tag">nginx:alpine</span>
+      <span class="tag">FTP Deploy</span>
+      <span class="tag">CyberPanel</span>
+    </div>
+  </section>
+
+  <footer>
+    <p>SEN 482 DevOps &nbsp;&middot;&nbsp; Continuous Assessment &nbsp;&middot;&nbsp; 2025/26</p>
+    <span>jepthah.vudse26.cloud</span>
+  </footer>
 
 </body>
 </html>
